@@ -1,33 +1,72 @@
-*.log
-.DS_Store
+# ==============================================
+# ENVIRONMENT & SECRETS (JANGAN PERNAH DIPUSH!)
+# ==============================================
 .env
-.env.backup
-.env.production
-.phpactor.json
-.phpunit.result.cache
-/.codex
-/.cursor/
-/.ideaj
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
-/auth.json
+.env.*
+!/env.example
+!/env.example.*
+
+# ==============================================
+# DEPENDENCIES
+# ==============================================
+/vendor
 /node_modules
+
+# ==============================================
+# LARAVEL FRAMEWORK
+# ==============================================
 /public/build
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
 /storage/*.key
 /storage/pail
-/vendor
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitignore
+
+# ==============================================
+# TESTING
+# ==============================================
+.phpunit.result.cache
+/.phpunit.cache
+/coverage
+/.phpunit.cache/
+
+# ==============================================
+# LOGS & TEMP FILES
+# ==============================================
+*.log
+Thumbs.db
+.DS_Store
+
+# ==============================================
+# IDE & EDITOR FILES
+# ==============================================
+/.codex
+/.cursor/
+/.ideaj
+/.nova
+/.vscode
+/.zed
+.phpactor.json
+.phpstorm.meta.php
+
+# ==============================================
+# IDE HELPERS (generated, jangan dipush)
+# ==============================================
 _ide_helper.php
 _ide_helper_models.php
-.phpstorm.meta.php
+
+# ==============================================
+# LARAVEL DEPRECATED / HOMESTEAD
+# ==============================================
+/auth.json
+composer.phar
 Homestead.json
 Homestead.yaml
-Thumbs.db
 
-# AI Agent / IDE internal files (jangan dipush)
+# ==============================================
+# AI AGENT / INTERNAL FILES (jangan dipush)
+# ==============================================
 AGENTS.md
 boost.json
