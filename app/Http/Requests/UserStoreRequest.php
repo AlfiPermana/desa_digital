@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserStoreRequest extends FormRequest
 {
-   
+
 
     /**
      * Get the validation  rules that apply to the request.
@@ -29,18 +29,6 @@ class UserStoreRequest extends FormRequest
             'name' => 'Nama',
             'email' => 'Email',
             'password' => 'Kata Sandi'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute harus diisi.',
-            'string' => ':attribute harus berupa string.',
-            'max' => ':attribute maksimal :max karakter.',
-            'min' => ':attribute minimal :min karakter.',
-            'unique' => ':attribute sudah ada.',
-            'email' => ':attribute harus berupa email.',
         ];
     }
 }
