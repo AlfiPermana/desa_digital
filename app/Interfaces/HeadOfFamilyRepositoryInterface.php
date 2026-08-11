@@ -22,4 +22,9 @@ interface HeadOfFamilyRepositoryInterface
     public function create(
         array $data
     );
+
+    public function update(
+        string $if,
+        array $data
+    );
 }

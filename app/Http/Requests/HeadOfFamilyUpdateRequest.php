@@ -2,11 +2,19 @@
 
 namespace App\Http\Requests;
 
+use App\Models\HeadOfFamily;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class HeadOfFamilyStoreRequest extends FormRequest
+class HeadOfFamilyUpdateRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -17,9 +25,9 @@ class HeadOfFamilyStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:8',
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'email' => 'nullable|string|email|unique:users,email,' . HeadOfFamily::find($this->route('head_of_family'))->user_id,
+            'password' => 'nullable|string|min:8',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'identity_number' => 'required|integer',
             'gender' => 'required|string|in:male,female',
             'date_of_birth' => 'required|date',
