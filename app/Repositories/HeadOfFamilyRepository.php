@@ -43,6 +43,13 @@ class HeadOfFamilyRepository implements HeadOfFamilyRepositoryInterface
         return $query->paginate($rowPerPage);
     }
 
+    public function getById(
+        string $id
+    ) {
+        $query = HeadOfFamily::where('id', $id);
+        return $query->first();
+    }
+
     public function create(
         array $data
     ) {
