@@ -183,6 +183,36 @@ class HeadOfFamilyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $headOfFamily =  $this->headOfFamilyRepository->getById($id);
+
+            if (!$headOfFamily) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'Kepala Keluarga Tidak Ditemukan',
+                    null,
+                    404
+                );
+            }
+
+            $headOfFamily = $this->headOfFamilyRepository->delete(
+                $id,
+            );
+
+
+            return ResponseHelper::jsonResponse(
+                true,
+                'Kepala Keluarga Berhasil Dihapus',
+                null,
+                200
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 }
