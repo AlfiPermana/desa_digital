@@ -6,6 +6,8 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Interfaces\HeadOfFamilyRepositoryInterface;
 use App\Repositories\HeadOfFamilyRepository;
+use App\Interfaces\FamilyMemberRepositoryInterface;
+use App\Repositories\FamilyMemberRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -23,6 +25,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             HeadOfFamilyRepositoryInterface::class,
             HeadOfFamilyRepository::class
+        );
+
+        $this->app->bind(
+            FamilyMemberRepositoryInterface::class,
+            FamilyMemberRepository::class
         );
     }
 
