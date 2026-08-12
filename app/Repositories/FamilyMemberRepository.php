@@ -13,11 +13,13 @@ class FamilyMemberRepository implements FamilyMemberRepositoryInterface
         ?int $limit,
         bool $execute
     ) {
-        $query = FamilyMember::where(function ($query) use ($search) {
-            if ($search) {
-                $query->search($search);
-            }
-        });
+        $query = FamilyMember::query();
+
+        if ($search) {
+            $query->search($search);
+        }
+
+        $query->orderBy('created_at', 'desc');
 
         if ($limit) {
             $query->take($limit);

@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\HeadOfFamily;
+use App\Models\FamilyMember;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<HeadOfFamily>
+ * @extends Factory<FamilyMember>
  */
-class HeadOfFamilyFactory extends Factory
+class FamilyMemberFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -25,7 +25,7 @@ class HeadOfFamilyFactory extends Factory
             'phone_number' => $this->faker->unique()->phoneNumber(),
             'occupation' => $this->faker->jobTitle(),
             'marital_status' => $this->faker->randomElement(['married', 'single']),
-
+            'relation' => $this->faker->randomElement(['husband', 'wife', 'child']),
         ];
     }
 }
