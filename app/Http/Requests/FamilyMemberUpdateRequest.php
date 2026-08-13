@@ -2,13 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Models\HeadOfFamily;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\FamilyMember;
 
-class HeadOfFamilyUpdateRequest extends FormRequest
+class FamilyMemberUpdateRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -18,7 +17,7 @@ class HeadOfFamilyUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'nullable|string|email|unique:users,email,' . HeadOfFamily::find($this->route('head_of_family'))->user_id,
+            'email' => 'nullable|string|email|unique:users,email,' . FamilyMember::find($this->route('family_member'))->user_id,
             'password' => 'nullable|string|min:8',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'identity_number' => 'required|integer',
@@ -27,6 +26,8 @@ class HeadOfFamilyUpdateRequest extends FormRequest
             'phone_number' => 'required|string',
             'occupation' => 'required|string',
             'marital_status' => 'required|string|in:married,single',
+            'relation' => 'required|string|in:wife,child,husband',
+
         ];
     }
 
@@ -42,6 +43,7 @@ class HeadOfFamilyUpdateRequest extends FormRequest
             'phone_number' => 'Nomor Telepon',
             'occupation' => 'Pekerjaan',
             'marital_status' => 'Status Perkawinan',
+            'relation' => 'Hubungan'
         ];
     }
 }
