@@ -8,6 +8,8 @@ use App\Interfaces\HeadOfFamilyRepositoryInterface;
 use App\Repositories\HeadOfFamilyRepository;
 use App\Interfaces\FamilyMemberRepositoryInterface;
 use App\Repositories\FamilyMemberRepository;
+use App\Interfaces\SocialAssistanceRepositoryInterface;
+use App\Repositories\SocialAssistanceRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -30,6 +32,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             FamilyMemberRepositoryInterface::class,
             FamilyMemberRepository::class
+        );
+
+        $this->app->bind(
+            SocialAssistanceRepositoryInterface::class,
+            SocialAssistanceRepository::class
         );
     }
 
