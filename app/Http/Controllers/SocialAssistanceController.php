@@ -40,13 +40,13 @@ class SocialAssistanceController extends Controller
     {
         $request = $request->validate([
             'search' => 'nullable|string',
-            'rowPerPage' => 'nullable|integer',
+            'row_per_page' => 'nullable|integer',
         ]);
 
         try {
             $socialAssistances = $this->socialAssistanceRepository->getAllPaginated(
                 $request['search'] ?? null,
-                $request['rowPerPage']
+                $request['row_per_page']
             );
 
             return ResponseHelper::jsonResponse(true, 'Data Bantuan Sosial Berhasil Diambil', PaginateResource::make($socialAssistances, SocialAssistanceResource::class), 200);
