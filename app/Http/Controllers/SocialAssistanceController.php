@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\SocialAssistanceRepositoryInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Resources\SocialAssistanceResource;
+use App\Http\Requests\SocialAssistanceStoreRequest;
 use App\Http\Resources\PaginateResource;
 
 use Illuminate\Http\Request;
@@ -58,9 +59,17 @@ class SocialAssistanceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SocialAssistanceStoreRequest $request)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $socialAssistance = $this->socialAssistanceRepository->create($request);
+
+            return ResponseHelper::jsonResponse(true, 'Data Bantuan Sosial Berhasil Ditambahkan', new SocialAssistanceResource($socialAssistance), 201);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
