@@ -40,6 +40,13 @@ class SocialAssistanceRepository implements SocialAssistanceRepositoryInterface
         return $query->paginate($rowPerPage);
     }
 
+    public function getById(
+        string $id
+    ) {
+        $query = SocialAssistance::where('id', $id);
+        return $query->first();
+    }
+
     public function create(
         array $data
     ) {

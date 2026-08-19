@@ -77,7 +77,17 @@ class SocialAssistanceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $socialAssistance = $this->socialAssistanceRepository->getById($id);
+
+            if (!$socialAssistance) {
+                return ResponseHelper::jsonResponse(false, 'Data Bantuan Sosial Tidak Ditemukan', null, 404);
+            }
+
+            return ResponseHelper::jsonResponse(true, 'Data Bantuan Sosial Berhasil Diambil', new SocialAssistanceResource($socialAssistance), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
