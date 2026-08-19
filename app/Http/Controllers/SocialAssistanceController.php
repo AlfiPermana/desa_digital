@@ -118,6 +118,18 @@ class SocialAssistanceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $socialAssistance = $this->socialAssistanceRepository->getById($id);
+
+            if (!$socialAssistance) {
+                return ResponseHelper::jsonResponse(false, 'Data Bantuan Sosial Tidak Ditemukan', null, 404);
+            }
+
+            $socialAssistance = $this->socialAssistanceRepository->delete($id);
+
+            return ResponseHelper::jsonResponse(true, 'Data Bantuan Sosial Berhasil Dihapus', null, 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 }

@@ -103,4 +103,20 @@ class SocialAssistanceRepository implements SocialAssistanceRepositoryInterface
             throw new Exception($e->getMessage());
         }
     }
+
+    public function delete(
+        string $id
+    ) {
+        DB::beginTransaction();
+
+        try {
+            $socialAssistance = SocialAssistance::find($id);
+            $socialAssistance->delete();
+            DB::commit();
+            return $socialAssistance;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
+    }
 }
