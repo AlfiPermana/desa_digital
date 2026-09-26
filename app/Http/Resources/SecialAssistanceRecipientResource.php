@@ -4,8 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\SocialAssistance;
-use App\Models\HeadOfFamily;
+use App\Http\Resources\SocialAssistanceResource;
+use App\Http\Resources\HeadOfFamilyResource;
 
 class SecialAssistanceRecipientResource extends JsonResource
 {
@@ -18,8 +18,8 @@ class SecialAssistanceRecipientResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'social_assistance_id' => new SocialAssistance($this->socialAssistance),
-            'head_of_family_id' => new HeadOfFamily($this->headOfFamily),
+            'social_assistance' => new SocialAssistanceResource($this->socialAssistance),
+            'head_of_family' => new HeadOfFamilyResource($this->headOfFamily),
             'amount' => $this->amount,
             'reason' => $this->reason,
             'bank' => $this->bank,
