@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UUID;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SocialAssistanceRecipient extends Model
 {
-    use SoftDeletes, UUID;
+    use SoftDeletes, UUID, HasFactory;
 
     protected $fillable = [
         'social_assistance_id',
