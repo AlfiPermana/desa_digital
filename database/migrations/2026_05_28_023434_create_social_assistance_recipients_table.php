@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->longText('reason');
             $table->enum('bank', ['bri', 'bni', 'bca', 'mandiri']);
-            $table->integer('account_number');
+            $table->bigInteger('account_number');
             $table->string('proof');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
 

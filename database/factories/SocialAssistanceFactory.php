@@ -23,8 +23,8 @@ class SocialAssistanceFactory extends Factory
                 'Bansos Pangan',
                 'Bansos Tunai',
                 'Bansos Bahan Bakar Bersubsidi',
-                'Bansos Kesehatab'
-            ]) . '' .  $this->faker->company,
+                'Bansos Kesehatan'
+            ]) . ' ' .  $this->faker->company,
             'category' => $this->faker->randomElement([
                 'staple',
                 'cash',

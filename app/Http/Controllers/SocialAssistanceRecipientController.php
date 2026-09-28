@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\SocialAssistanceRecipientStoreRequest;
 use App\Http\Resources\SecialAssistanceRecipientResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\SocialAssistanceRecipientRepositoryInterface;
@@ -58,9 +59,17 @@ class SocialAssistanceRecipientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SocialAssistanceRecipientStoreRequest $request)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $socialAssistanceRecipient = $this->socialAssistanceRecipientRepository->create($request);
+
+            return ResponseHelper::jsonResponse(true, 'Data Penerima Bantuan Sosial Berhasil ', new SecialAssistanceRecipientResource($socialAssistanceRecipient), 200);
+        } catch (Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
@@ -68,7 +77,17 @@ class SocialAssistanceRecipientController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $socialAssistanceRecipient = $this->socialAssistanceRecipientRepository->getById($id);
+
+            if (!$socialAssistanceRecipient) {
+                return ResponseHelper::jsonResponse(false, 'Data Penerima Bantuan Sosial Tidak Ditemukan', null, 404);
+            }
+
+            return ResponseHelper::jsonResponse(true, 'Data Penerima Bantuan Sosial Berhasil Ditemukan', new SecialAssistanceRecipientResource($socialAssistanceRecipient), 200);
+        } catch (Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
