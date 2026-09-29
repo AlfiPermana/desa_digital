@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\SocialAssistanceRecipientStoreRequest;
+use App\Http\Requests\SocialAssistanceRecipientUpdateRequest;
 use App\Http\Resources\SecialAssistanceRecipientResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\SocialAssistanceRecipientRepositoryInterface;
@@ -93,9 +94,24 @@ class SocialAssistanceRecipientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SocialAssistanceRecipientUpdateRequest $request, string $id)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $socialAssistanceRecipient = $this->socialAssistanceRecipientRepository->getById($id);
+
+            if (!$socialAssistanceRecipient) {
+                return ResponseHelper::jsonResponse(false, 'Data Penerima Bantuan Sosial Tidak Ditemukan', null, 404);
+            }
+
+            $socialAssistanceRecipient = $this->socialAssistanceRecipientRepository->update($id, $request);
+
+
+            return ResponseHelper::jsonResponse(true, 'Data Penerima Bantuan Sosial Berhasil Diupdate', new SecialAssistanceRecipientResource($socialAssistanceRecipient), 200);
+        } catch (Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**

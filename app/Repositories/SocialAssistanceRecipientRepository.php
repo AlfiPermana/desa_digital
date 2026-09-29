@@ -82,4 +82,36 @@ class SocialAssistanceRecipientRepository implements SocialAssistanceRecipientRe
             throw new Exception($e->getMessage());
         }
     }
+
+    public function update(
+        string $id,
+        array $data
+    ) {
+        DB::beginTransaction();
+        try {
+            $socialAssistanceRecipient = SocialAssistanceRecipient::find($id);
+            $socialAssistanceRecipient->social_assistance_id = $data['social_assistance_id'];
+            $socialAssistanceRecipient->head_of_family_id = $data['head_of_family_id'];
+            $socialAssistanceRecipient->amount = $data['amount'];
+            $socialAssistanceRecipient->reason = $data['reason'];
+            $socialAssistanceRecipient->bank = $data['bank'];
+            $socialAssistanceRecipient->account_number = $data['account_number'];
+
+            if (isset($data['proof'])) {
+                $socialAssistanceRecipient->proof = $data['proof'];
+            }
+
+            if (isset($data['status'])) {
+                $socialAssistanceRecipient->status = $data['status'];
+            }
+
+            $socialAssistanceRecipient->save();
+
+            DB::commit();
+            return $socialAssistanceRecipient;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
+    }
 }
