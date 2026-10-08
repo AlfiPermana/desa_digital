@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-USE App\Traits\UUID;
+use App\Traits\UUID;
 
 class Event extends Model
 {
@@ -19,6 +19,11 @@ class Event extends Model
         'time',
         'is_active',
     ];
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', '%' . $search . '%');
+    }
 
     public function eventParticipants()
     {

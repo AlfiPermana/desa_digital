@@ -13,6 +13,8 @@ use App\Repositories\SocialAssistanceRepository;
 use App\Interfaces\SocialAssistanceRecipientRepositoryInterface;
 use App\Repositories\SocialAssistanceRecipientRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Interfaces\EventRepositoryInterface;
+use App\Repositories\EventRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -44,6 +46,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             SocialAssistanceRecipientRepositoryInterface::class,
             SocialAssistanceRecipientRepository::class
+        );
+
+        $this->app->bind(
+            EventRepositoryInterface::class,
+            EventRepository::class
         );
     }
 
