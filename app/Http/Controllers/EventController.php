@@ -9,6 +9,7 @@ use App\Http\Resources\EventResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\EventRepositoryInterface;
 use App\Http\Requests\EventStoreRequest;
+use App\Http\Requests\EventUpdateRequest;
 
 class EventController extends Controller
 {
@@ -133,9 +134,38 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EventUpdateRequest $request, string $id)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $event = $this->eventRepository->getById($id);
+            if (!$event) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'Data Event tidak ditemukan.',
+                    null,
+                    404
+                );
+            }
+            $event = $this->eventRepository->update(
+                $id,
+                $request
+            );
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Event berhasil diupdate.',
+                new EventResource($event),
+                200
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**
