@@ -118,4 +118,23 @@ class EventRepository implements EventRepositoryInterface
             throw new Exception($e->getMessage());
         }
     }
+
+    public function delete(
+        string $id
+    ) {
+
+        DB::beginTransaction();
+
+        try {
+            $event = Event::find($id);
+            $event->delete();
+            DB::commit();
+
+            return $event;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            throw new Exception($e->getMessage());
+        }
+    }
 }
