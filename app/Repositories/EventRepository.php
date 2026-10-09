@@ -45,6 +45,14 @@ class EventRepository implements EventRepositoryInterface
         return $query->paginate($rowPerPage);
     }
 
+    public function getById(
+        string $id
+    ) {
+        $query = Event::where('id', $id);
+
+        return $query->first();
+    }
+
     public function create(
         array $data
     ) {

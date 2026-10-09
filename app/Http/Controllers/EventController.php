@@ -104,7 +104,30 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $event = $this->eventRepository->getById($id);
+            if (!$event) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'Data Event tidak ditemukan.',
+                    null,
+                    404
+                );
+            }
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Event berhasil diambil.',
+                new EventResource($event),
+                200
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**
