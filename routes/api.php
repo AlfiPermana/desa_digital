@@ -6,6 +6,7 @@ use App\Http\Controllers\FamilyMemberController;
 use App\Http\Controllers\SocialAssistanceController;
 use App\Http\Controllers\SocialAssistanceRecipientController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventParticipantController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('user', UserController::class);
@@ -25,3 +26,6 @@ Route::get('social-assistance-recipient/all/paginated', [SocialAssistanceRecipie
 
 Route::apiResource('event', EventController::class);
 Route::get('event/all/paginated', [EventController::class, 'getAllPaginated']);
+
+Route::apiResource('event-participant', EventParticipantController::class);
+Route::get('event-participant/all/paginated', [EventParticipantController::class, 'getAllPaginated']);

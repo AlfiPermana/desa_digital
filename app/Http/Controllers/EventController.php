@@ -51,7 +51,7 @@ class EventController extends Controller
     {
         $request = $request->validate([
             'search' => 'nullable|string',
-            'row_per_page' => 'nullable|integer',
+            'row_per_page' => 'required|integer',
         ]);
 
         try {
