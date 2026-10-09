@@ -8,6 +8,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\EventRepositoryInterface;
+use App\Http\Requests\EventStoreRequest;
 
 class EventController extends Controller
 {
@@ -76,9 +77,26 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EventStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        try {
+            $event = $this->eventRepository->create($data);
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Event berhasil dibuat.',
+                new EventResource($event),
+                201
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**
