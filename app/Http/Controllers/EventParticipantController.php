@@ -8,6 +8,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Resources\EventParticipantResource;
 use App\Http\Resources\PaginateResource;
 use App\Http\Requests\EventParticipantStoreRequest;
+use App\Http\Requests\EventParticipantUpdateRequest;
 use Exception;
 
 class EventParticipantController extends Controller
@@ -134,9 +135,38 @@ class EventParticipantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EventParticipantUpdateRequest $request, string $id)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $eventParticipant = $this->eventParticipantRepository->getById($id);
+            if (!$eventParticipant) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'Data Pendaftar Event tidak ditemukan.',
+                    null,
+                    404
+                );
+            }
+            $eventParticipant = $this->eventParticipantRepository->update(
+                $id,
+                $request
+            );
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Pendaftar Event berhasil Diupdate.',
+                new EventParticipantResource($eventParticipant),
+                200
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**
@@ -144,6 +174,30 @@ class EventParticipantController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $eventParticipant = $this->eventParticipantRepository->getById($id);
+            if (!$eventParticipant) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'Data Pendaftar Event tidak ditemukan.',
+                    null,
+                    404
+                );
+            }
+            $this->eventParticipantRepository->delete($id);
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Pendaftar Event berhasil dihapus.',
+                null,
+                200
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 }
