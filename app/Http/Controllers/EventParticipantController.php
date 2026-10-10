@@ -7,6 +7,7 @@ use App\Interfaces\EventParticipantRepositoryInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Resources\EventParticipantResource;
 use App\Http\Resources\PaginateResource;
+use App\Http\Requests\EventParticipantStoreRequest;
 use Exception;
 
 class EventParticipantController extends Controller
@@ -77,9 +78,26 @@ class EventParticipantController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EventParticipantStoreRequest $request)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $eventParticipant = $this->eventParticipantRepository->create($request);
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Pendaftar Event Berhasil Ditambahkan.',
+                new EventParticipantResource($eventParticipant),
+                201
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**

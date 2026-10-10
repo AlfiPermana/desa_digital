@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
+use App\Http\Resources\HeadOfFamilyResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\HeadOfFamily;
+use Illuminate\Http\Request;
 
 class EventParticipantResource extends JsonResource
 {
@@ -18,7 +18,7 @@ class EventParticipantResource extends JsonResource
         return [
             'id' => $this->id,
             'event' => new EventResource($this->event),
-            'head_of_family' => new HeadOfFamily($this->headOfFamily),
+            'head_of_family' => new HeadOfFamilyResource($this->headOfFamily),
             'quantity' => $this->quantity,
             'total_price' => (float)(string)$this->total_price,
             'payment_status' => $this->payment_status,

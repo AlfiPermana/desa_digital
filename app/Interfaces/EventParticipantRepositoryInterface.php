@@ -5,7 +5,7 @@ namespace App\Interfaces;
 interface EventParticipantRepositoryInterface
 {
     public function getAll(
-        ?string $eventId,
+        ?string $search,
         ?int $limit,
         bool $execute
     );
@@ -15,13 +15,13 @@ interface EventParticipantRepositoryInterface
         ?int $rowPerPage
     );
 
+    public function create(
+        array $data
+    );
     // public function getById(
     //     string $id
     // );
 
-    // public function create(
-    //     array $data
-    // );
 
     // public function update(
     //     string $id,
