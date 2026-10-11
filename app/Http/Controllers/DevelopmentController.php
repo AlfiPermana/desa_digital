@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\DevelopmenStoreRequest;
+use App\Http\Requests\DevelopmentUpdateRequest;
 use App\Http\Resources\DevelopmentResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\DevelopmentRepositoryInterface;
@@ -32,7 +33,7 @@ class DevelopmentController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pembangunan berhasil diambil.',
+                'Data Pembangunan Berhasil Diambil.',
                 DevelopmentResource::collection($development),
                 200
             );
@@ -60,7 +61,7 @@ class DevelopmentController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pembangunan berhasil diambil.',
+                'Data Pembangunan Berhasil Diambil.',
                 PaginateResource::make($development, DevelopmentResource::class),
                 200
             );
@@ -87,7 +88,7 @@ class DevelopmentController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pembangunan berhasil ditambahkan.',
+                'Data Pembangunan Berhasil Ditambahkan.',
                 new DevelopmentResource($development),
                 201
             );
@@ -117,14 +118,14 @@ class DevelopmentController extends Controller
             if (!$development) {
                 return ResponseHelper::jsonResponse(
                     false,
-                    'Data Pembangunan tidak ditemukan.',
+                    'Data Pembangunan Tidak Ditemukan.',
                     null,
                     404
                 );
             }
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pembangunan berhasil diambil.',
+                'Data Pembangunan Berhasil Diambil.',
                 new DevelopmentResource($development),
                 200
             );
@@ -141,9 +142,40 @@ class DevelopmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DevelopmentUpdateRequest $request, string $id)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $development = $this->developmentRepository->getById($id);
+
+            if (!$development) {
+                return ResponseHelper::jsonResponse(
+                    true,
+                    'Data Pembangunan Tidak Ditemukan.',
+                    null,
+                    404
+                );
+            }
+
+            $development = $this->developmentRepository->update(
+                $id,
+                $request
+            );
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Pembangunan Berhasil Diupdate.',
+                new DevelopmentResource($development),
+                200
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**

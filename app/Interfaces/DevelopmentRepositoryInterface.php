@@ -23,10 +23,10 @@ interface DevelopmentRepositoryInterface
         string $id
     );
 
-    // public function update(
-    //     string $id,
-    //     array $data
-    // );
+    public function update(
+        string $id,
+        array $data
+    );
 
     // public function delete(
     //     string $id
