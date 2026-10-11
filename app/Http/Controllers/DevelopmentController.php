@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
-use App\Http\Requests\DevelopmentStoreRequest;
+use App\Http\Requests\DevelopmenStoreRequest;
 use App\Http\Resources\DevelopmentResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\DevelopmentRepositoryInterface;
+
 
 class DevelopmentController extends Controller
 {
@@ -24,15 +25,15 @@ class DevelopmentController extends Controller
     public function index(Request $request)
     {
         try {
-            $events = $this->developmentRepository->getAll(
+            $development = $this->developmentRepository->getAll(
                 $request->search,
                 $request->limit,
                 true
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil diambil.',
-                DevelopmentResource::collection($events),
+                'Data Pembangunan berhasil diambil.',
+                DevelopmentResource::collection($development),
                 200
             );
         } catch (\Exception $e) {
@@ -53,14 +54,14 @@ class DevelopmentController extends Controller
         ]);
 
         try {
-            $events = $this->developmentRepository->getAllPaginated(
+            $development = $this->developmentRepository->getAllPaginated(
                 $request['search'] ?? null,
                 $request['row_per_page']
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil diambil.',
-                PaginateResource::make($events, DevelopmentResource::class),
+                'Data Pembangunan berhasil diambil.',
+                PaginateResource::make($development, DevelopmentResource::class),
                 200
             );
         } catch (\Exception $e) {
@@ -76,9 +77,28 @@ class DevelopmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DevelopmenStoreRequest $request)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $development = $this->developmentRepository->create(
+                $request
+            );
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Pembangunan berhasil ditambahkan.',
+                new DevelopmentResource($development),
+                201
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**
