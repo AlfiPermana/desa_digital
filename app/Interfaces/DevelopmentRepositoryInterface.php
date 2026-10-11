@@ -19,9 +19,9 @@ interface DevelopmentRepositoryInterface
         array $data
     );
 
-    // public function find(
-    //     string $id
-    // );
+    public function getById(
+        string $id
+    );
 
     // public function update(
     //     string $id,

@@ -43,6 +43,14 @@ class DevelopmentRepository implements DevelopmentRepositoryInterface
         return $query->paginate($rowPerPage);
     }
 
+    public function getById(
+        string $id
+    ) {
+        $query = Development::where('id', $id);
+
+        return $query->first();
+    }
+
     public function create(
         array $data
     ) {

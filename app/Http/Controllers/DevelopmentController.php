@@ -106,7 +106,36 @@ class DevelopmentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $development = $this->developmentRepository->getById(
+            $id
+        );
+        try {
+            $development = $this->developmentRepository->getById(
+                $id
+            );
+
+            if (!$development) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'Data Pembangunan tidak ditemukan.',
+                    null,
+                    404
+                );
+            }
+            return ResponseHelper::jsonResponse(
+                true,
+                'Data Pembangunan berhasil diambil.',
+                new DevelopmentResource($development),
+                200
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     /**
