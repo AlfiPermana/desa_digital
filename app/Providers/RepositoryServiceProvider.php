@@ -19,6 +19,8 @@ use App\Interfaces\EventParticipantRepositoryInterface;
 use App\Repositories\EventParticipantRepository;
 use App\Interfaces\DevelopmentRepositoryInterface;
 use App\Repositories\DevelopmentRepository;
+use App\Interfaces\DevelopmentApplicantRepositoryInterface;
+use App\Repositories\DevelopmentApplicantRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -65,6 +67,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DevelopmentRepositoryInterface::class,
             DevelopmentRepository::class
+        );
+
+        $this->app->bind(
+            DevelopmentApplicantRepositoryInterface::class,
+            DevelopmentApplicantRepository::class
         );
     }
 

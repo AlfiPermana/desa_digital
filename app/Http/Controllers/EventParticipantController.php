@@ -62,7 +62,7 @@ class EventParticipantController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pendaftar Event berhasil diambil.',
+                'Data Pendaftar Event Berhasil Diambil.',
                 PaginateResource::make($eventParticipants, EventParticipantResource::class),
                 200
             );
@@ -111,14 +111,14 @@ class EventParticipantController extends Controller
             if (!$eventParticipant) {
                 return ResponseHelper::jsonResponse(
                     false,
-                    'Data Pendaftar Event tidak ditemukan.',
+                    'Data Pendaftar Event Tidak Ditemukan.',
                     null,
                     404
                 );
             }
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pendaftar Event berhasil diambil.',
+                'Data Pendaftar Event Berhasil Diambil.',
                 new EventParticipantResource($eventParticipant),
                 200
             );
@@ -144,7 +144,7 @@ class EventParticipantController extends Controller
             if (!$eventParticipant) {
                 return ResponseHelper::jsonResponse(
                     false,
-                    'Data Pendaftar Event tidak ditemukan.',
+                    'Data Pendaftar Event Tidak Ditemukan.',
                     null,
                     404
                 );
@@ -155,7 +155,7 @@ class EventParticipantController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pendaftar Event berhasil Diupdate.',
+                'Data Pendaftar Event Berhasil Diupdate.',
                 new EventParticipantResource($eventParticipant),
                 200
             );
@@ -179,7 +179,7 @@ class EventParticipantController extends Controller
             if (!$eventParticipant) {
                 return ResponseHelper::jsonResponse(
                     false,
-                    'Data Pendaftar Event tidak ditemukan.',
+                    'Data Pendaftar Event Tidak Ditemukan.',
                     null,
                     404
                 );
@@ -187,7 +187,7 @@ class EventParticipantController extends Controller
             $this->eventParticipantRepository->delete($id);
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Pendaftar Event berhasil dihapus.',
+                'Data Pendaftar Event Berhasil Dihapus.',
                 null,
                 200
             );

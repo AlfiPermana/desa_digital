@@ -33,7 +33,7 @@ class EventController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil diambil.',
+                'Data Event Berhasil Diambil.',
                 EventResource::collection($event),
                 200
             );
@@ -61,7 +61,7 @@ class EventController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil diambil.',
+                'Data Event Berhasil Diambil.',
                 PaginateResource::make($events, EventResource::class),
                 200
             );
@@ -86,7 +86,7 @@ class EventController extends Controller
             $event = $this->eventRepository->create($data);
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil dibuat.',
+                'Data Event Berhasil Dibuat.',
                 new EventResource($event),
                 201
             );
@@ -110,14 +110,14 @@ class EventController extends Controller
             if (!$event) {
                 return ResponseHelper::jsonResponse(
                     false,
-                    'Data Event tidak ditemukan.',
+                    'Data Event Tidak Ditemukan.',
                     null,
                     404
                 );
             }
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil diambil.',
+                'Data Event Berhasil Diambil.',
                 new EventResource($event),
                 200
             );
@@ -143,7 +143,7 @@ class EventController extends Controller
             if (!$event) {
                 return ResponseHelper::jsonResponse(
                     false,
-                    'Data Event tidak ditemukan.',
+                    'Data Event Tidak Ditemukan.',
                     null,
                     404
                 );
@@ -154,7 +154,7 @@ class EventController extends Controller
             );
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil diupdate.',
+                'Data Event Berhasil Diupdate.',
                 new EventResource($event),
                 200
             );
@@ -178,7 +178,7 @@ class EventController extends Controller
             if (!$event) {
                 return ResponseHelper::jsonResponse(
                     false,
-                    'Data Event tidak ditemukan.',
+                    'Data Event Tidak Ditemukan.',
                     null,
                     404
                 );
@@ -186,7 +186,7 @@ class EventController extends Controller
             $event = $this->eventRepository->delete($id);
             return ResponseHelper::jsonResponse(
                 true,
-                'Data Event berhasil dihapus.',
+                'Data Event Berhasil Dihapus.',
                 null,
                 200
             );
