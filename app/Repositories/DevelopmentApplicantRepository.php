@@ -8,8 +8,8 @@ use App\Models\DevelopmentApplicant;
 class DevelopmentApplicantRepository implements DevelopmentApplicantRepositoryInterface
 {
     public function getAll(
-        string $search,
-        int $limit,
+        ?string $search,
+        ?int $limit,
         bool $execute
     ) {
 
