@@ -7,6 +7,7 @@ use App\Http\Resources\PaginateResource;
 use App\Interfaces\DevelopmentApplicantRepositoryInterface;
 use App\Helpers\ResponseHelper;
 use Illuminate\Http\Request;
+use App\Http\Requests\DevelopmentApplicantStoreRequest;
 
 class DevelopmentApplicantController extends Controller
 {
@@ -55,9 +56,15 @@ class DevelopmentApplicantController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DevelopmentApplicantStoreRequest $request)
     {
-        //
+        $request = $request->validated();
+        try {
+            $developmentApplicant = $this->developmentApplicantRepository->create($request);
+            return ResponseHelper::jsonResponse(true, 'Data Pendaftar Pembangunan Berhasil Dibuat', new DevelopmentApplicantResource($developmentApplicant), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**

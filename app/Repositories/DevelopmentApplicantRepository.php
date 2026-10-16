@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Interfaces\DevelopmentApplicantRepositoryInterface;
 use App\Models\DevelopmentApplicant;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class DevelopmentApplicantRepository implements DevelopmentApplicantRepositoryInterface
 {
@@ -44,5 +46,27 @@ class DevelopmentApplicantRepository implements DevelopmentApplicantRepositoryIn
         );
 
         return $query->paginate($rowPerPage);
+    }
+
+    public function create(
+        array $data
+    ) {
+
+        DB::beginTransaction();
+        try {
+            $developmentApplicant = new DevelopmentApplicant();
+            $developmentApplicant->development_id = $data['development_id'];
+            $developmentApplicant->user_id = $data['user_id'];
+
+            if (isset($data['status'])) {
+                $developmentApplicant->status = $data['status'];
+            }
+            $developmentApplicant->save();
+            DB::commit();
+            return $developmentApplicant;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
     }
 }

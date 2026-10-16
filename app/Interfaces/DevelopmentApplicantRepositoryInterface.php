@@ -19,9 +19,9 @@ interface DevelopmentApplicantRepositoryInterface
         ?int $rowPerPage,
     );
 
-    // public function create(
-    //     array $data
-    // );
+    public function create(
+        array $data
+    );
 
     // public function update(
     //     string $id,
