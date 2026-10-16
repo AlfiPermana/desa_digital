@@ -116,8 +116,6 @@ class DevelopmentRepository implements DevelopmentRepositoryInterface
         DB::beginTransaction();
 
         try {
-
-
             $development = Development::find($id);
             $development->delete();
 

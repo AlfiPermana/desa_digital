@@ -110,6 +110,17 @@ class DevelopmentApplicantController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $developmentApplicant = $this->developmentApplicantRepository->getById($id);
+            if (!$developmentApplicant) {
+                return ResponseHelper::jsonResponse(false, 'Data Pendaftar Pembangunan Tidak Ditemukan', null, 404);
+            }
+
+            $this->developmentApplicantRepository->delete($id);
+
+            return ResponseHelper::jsonResponse(true, 'Data Pendaftar Pembangunan Berhasil Dihapus', null, 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 }

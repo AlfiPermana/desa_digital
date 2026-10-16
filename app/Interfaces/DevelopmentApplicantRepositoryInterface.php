@@ -31,7 +31,7 @@ interface DevelopmentApplicantRepositoryInterface
         array $data
     );
 
-    // public function delete(
-    //     string $id
-    // );
+    public function delete(
+        string $id
+    );
 }
