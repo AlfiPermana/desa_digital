@@ -72,7 +72,15 @@ class DevelopmentApplicantController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $developmentApplicant = $this->developmentApplicantRepository->getById($id);
+            if (!$developmentApplicant) {
+                return ResponseHelper::jsonResponse(false, 'Data Pendaftar Pembangunan Tidak Ditemukan', null, 404);
+            }
+            return ResponseHelper::jsonResponse(true, 'Data Pendaftar Pembangunan Berhasil Diambil', new DevelopmentApplicantResource($developmentApplicant), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**

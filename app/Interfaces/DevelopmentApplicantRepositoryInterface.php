@@ -10,18 +10,21 @@ interface DevelopmentApplicantRepositoryInterface
         bool $execute
     );
 
-    // public function getById(
-    //     string $id
-    // );
 
     public function getAllPaginated(
         ?string $search,
         ?int $rowPerPage,
     );
 
+    public function getById(
+        string $id
+    );
+
     public function create(
         array $data
     );
+
+
 
     // public function update(
     //     string $id,

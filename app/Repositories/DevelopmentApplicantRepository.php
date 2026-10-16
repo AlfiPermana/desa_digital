@@ -69,4 +69,11 @@ class DevelopmentApplicantRepository implements DevelopmentApplicantRepositoryIn
             throw new Exception($e->getMessage());
         }
     }
+
+    public function getById(
+        string $id
+    ) {
+        $query = DevelopmentApplicant::where('id', $id);
+        return $query->first();
+    }
 }
