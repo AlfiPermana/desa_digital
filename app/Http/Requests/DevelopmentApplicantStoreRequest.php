@@ -30,15 +30,4 @@ class DevelopmentApplicantStoreRequest extends FormRequest
             'status' => 'Status',
         ];
     }
-
-    // public function messages(): array
-    // {
-    //     return [
-    //         'development_id.required' => 'Pengembangan wajib diisi',
-    //         'development_id.exists' => 'Pengembangan tidak ditemukan',
-    //         'user_id.required' => 'User wajib diisi',
-    //         'user_id.exists' => 'User tidak ditemukan',
-    //         'status.in' => 'Status harus di antara pending, approved, atau rejected',
-    //     ];
-    // }
 }

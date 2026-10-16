@@ -76,4 +76,26 @@ class DevelopmentApplicantRepository implements DevelopmentApplicantRepositoryIn
         $query = DevelopmentApplicant::where('id', $id);
         return $query->first();
     }
+
+    public function update(
+        string $id,
+        array $data
+    ) {
+        DB::beginTransaction();
+        try {
+            $developmentApplicant = DevelopmentApplicant::find($id);
+            $developmentApplicant->development_id = $data['development_id'];
+            $developmentApplicant->user_id = $data['user_id'];
+
+            if (isset($data['status'])) {
+                $developmentApplicant->status = $data['status'];
+            }
+            $developmentApplicant->save();
+            DB::commit();
+            return $developmentApplicant;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
+    }
 }
