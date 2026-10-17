@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\ProfileStoreRequest;
 use App\Http\Resources\ProfileResource;
-use App\Repositories\ProfileRepository;
+use App\Interfaces\ProfileRepositoryInterface;
 
 class ProfileController extends Controller
 {
-    private ProfileRepository $profileRepository;
+    private ProfileRepositoryInterface $profileRepository;
 
-    public function __construct(
-        ProfileRepository $profileRepository
-    ) {
+    public function __construct(ProfileRepositoryInterface $profileRepository)
+    {
         $this->profileRepository = $profileRepository;
     }
 
@@ -31,15 +31,20 @@ class ProfileController extends Controller
         }
     }
 
-    // public function create(StoreRequest $request)
-    // {
-    //     $profile = $this->profileRepository->create($request->validated());
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'message' => 'Profile created successfully',
-    //         'data' => $profile,
-    //     ], 201);
-    // }
+    public function store(ProfileStoreRequest $request)
+    {
+
+        $request = $request->validated();
+
+        try {
+
+            $profile = $this->profileRepository->create($request);
+
+            return ResponseHelper::jsonResponse(true, 'Data Profile Berhasil Ditambahkan', new ProfileResource($profile), 201);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
+    }
 
     // public function update(UpdateRequest $request)
     // {

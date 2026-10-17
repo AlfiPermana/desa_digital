@@ -9,6 +9,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\DevelopmentController;
 use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\DevelopmentApplicantController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('user', UserController::class);
@@ -37,3 +38,6 @@ Route::get('development/all/paginated', [DevelopmentController::class, 'getAllPa
 
 Route::apiResource('development-applicant', DevelopmentApplicantController::class);
 Route::get('development-applicant/all/paginated', [DevelopmentApplicantController::class, 'getAllPaginated']);
+
+Route::get('profile', [ProfileController::class, 'index']);
+Route::post('profile', [ProfileController::class, 'store']);
