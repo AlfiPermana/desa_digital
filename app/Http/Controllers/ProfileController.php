@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\ProfileStoreRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\ProfileResource;
 use App\Interfaces\ProfileRepositoryInterface;
 
@@ -46,13 +47,18 @@ class ProfileController extends Controller
         }
     }
 
-    // public function update(UpdateRequest $request)
-    // {
-    //     $profile = $this->profileRepository->update($request->validated());
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'message' => 'Profile updated successfully',
-    //         'data' => $profile,
-    //     ], 200);
-    // }
+    public function update(ProfileUpdateRequest $request)
+    {
+
+        $request = $request->validated();
+
+        try {
+
+            $profile = $this->profileRepository->update($request);
+
+            return ResponseHelper::jsonResponse(true, 'Data Profile Berhasil Diubah', new ProfileResource($profile), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
+    }
 }
