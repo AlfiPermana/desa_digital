@@ -21,6 +21,8 @@ use App\Interfaces\DevelopmentRepositoryInterface;
 use App\Repositories\DevelopmentRepository;
 use App\Interfaces\DevelopmentApplicantRepositoryInterface;
 use App\Repositories\DevelopmentApplicantRepository;
+use App\Interfaces\ProfileRepositoryInterface;
+use App\Repositories\ProfileRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -72,6 +74,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DevelopmentApplicantRepositoryInterface::class,
             DevelopmentApplicantRepository::class
+        );
+
+        $this->app->bind(
+            ProfileRepositoryInterface::class,
+            ProfileRepository::class
         );
     }
 
