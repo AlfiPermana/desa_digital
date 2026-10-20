@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Interfaces\EventParticipantRepositoryInterface;
 use App\Helpers\ResponseHelper;
@@ -9,9 +10,11 @@ use App\Http\Resources\EventParticipantResource;
 use App\Http\Resources\PaginateResource;
 use App\Http\Requests\EventParticipantStoreRequest;
 use App\Http\Requests\EventParticipantUpdateRequest;
-use Exception;
+use Spatie\Permission\Middleware\PermissionMiddleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class EventParticipantController extends Controller
+class EventParticipantController extends Controller implements HasMiddleware
 {
 
     private EventParticipantRepositoryInterface $eventParticipantRepository;
@@ -19,6 +22,16 @@ class EventParticipantController extends Controller
     public function __construct(EventParticipantRepositoryInterface $eventParticipantRepository)
     {
         $this->eventParticipantRepository = $eventParticipantRepository;
+    }
+
+    public static function middleware()
+    {
+        return [
+            new Middleware(PermissionMiddleware::using(['event-participant-list|event-participant-create|event-participant-edit|event-participant-delete']), only: ['index', 'getAllPaginated', 'show']),
+            new Middleware(PermissionMiddleware::using(['event-participant-create']), only: ['store']),
+            new Middleware(PermissionMiddleware::using(['event-participant-edit']), only: ['update']),
+            new Middleware(PermissionMiddleware::using(['event-participant-delete']), only: ['destroy']),
+        ];
     }
 
     /**

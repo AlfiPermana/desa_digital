@@ -9,14 +9,27 @@ use App\Helpers\ResponseHelper;
 use Illuminate\Http\Request;
 use App\Http\Requests\DevelopmentApplicantStoreRequest;
 use App\Http\Requests\DevelopmentApplicantUpdateRequest;
+use Spatie\Permission\Middleware\PermissionMiddleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class DevelopmentApplicantController extends Controller
+class DevelopmentApplicantController extends Controller implements HasMiddleware
 {
     private DevelopmentApplicantRepositoryInterface $developmentApplicantRepository;
 
     public function __construct(DevelopmentApplicantRepositoryInterface $developmentApplicantRepository)
     {
         $this->developmentApplicantRepository = $developmentApplicantRepository;
+    }
+
+    public static function middleware()
+    {
+        return [
+            new Middleware(PermissionMiddleware::using(['development-applicant-list|development-applicant-create|development-applicant-edit|development-applicant-delete']), only: ['index', 'getAllPaginated', 'show']),
+            new Middleware(PermissionMiddleware::using(['development-applicant-create']), only: ['store']),
+            new Middleware(PermissionMiddleware::using(['development-applicant-edit']), only: ['update']),
+            new Middleware(PermissionMiddleware::using(['development-applicant-delete']), only: ['destroy']),
+        ];
     }
 
     /**
