@@ -11,13 +11,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, UUID, softDeletes;
+    use HasFactory, Notifiable, UUID, softDeletes, HasRoles;
 
     /**
      * Get the attributes that should be cast.
@@ -34,14 +35,14 @@ class User extends Authenticatable
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%'. $search .'%')
-            ->orWhere('email', 'like', '%'. $search .'%');
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%');
     }
     public function headOfFamily()
     {
         return $this->hasOne(HeadOfFamily::class);
     }
-    
+
     public function familyMembers()
     {
         return $this->hasOne(FamilyMember::class);
